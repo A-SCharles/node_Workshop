@@ -1,3 +1,2 @@
-Example 3
-new contents
-new contents
+I am writing
+I am appending

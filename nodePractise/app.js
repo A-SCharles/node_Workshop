@@ -27,8 +27,25 @@ if(time > 9){
 //  file name
 // console.log(__filename)
 
-function addition(num1, num2) {
-  return num1 + num2;
+// function addition(num1, num2) {
+//   return num1 + num2;
+// }
+
+// module.exports = addition;
+
+async function write(txtData, content) {
+//   txtData = "Random test things 1";
+  const fs = require("fs").promises;
+//   writes
+   fs.writeFile("./data.txt", txtData)
+   // adds
+   fs.appendFile("data.txt", "\n" + content);
+   // reads
+  const file = await fs.readFile("./data.txt", "utf8");
+//   displaying
+   console.log(file);
 }
 
-module.exports = addition;
+write("I am writing", "I am appending");
+
+// console.log(write())
