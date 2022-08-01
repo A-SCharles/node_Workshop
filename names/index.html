@@ -1,0 +1,59 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Names Array</title>
+</head>
+
+<body>
+    <style>
+        .row {
+            min-height: 100vh;
+        }
+
+        li {
+            color: black;
+            background-color: green;
+        }
+    </style>
+
+
+    <main>
+        <div class="container h-100">
+            <div class="row m-auto h-100 d-flex justify-content-center align-items-center">
+                <div id="names" class="col-md-6 mx-auto bg-warning rounded-5 p-3">
+                        <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus facilis consequuntur quia recusandae ipsum sequi doloribus corrupti laborum officia tempore.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <script>
+        let names = ['James', "May", "Jeremy", "Clarkson", "Samat", "Salamangreat", "Student", "Something"]
+        let display = document.getElementById('names')
+        names.forEach((item, index) => {
+            // Way 1
+            // if ((names[index].charAt(0) == 'S') && (names[index].charAt(names[index].length - 1) == "t")) {
+            //     display.innerHTML += `<p>${item}</p>`
+            // }
+
+            // Way 2
+            if ((names[index].startsWith("S")) && (names[index].endsWith("t"))) {
+                display.innerHTML += `<p>${item}</p> `
+            }
+
+        });
+    </script>
+</body>
+
+</html>
