@@ -16,7 +16,9 @@ router.get("/", (req, res) => {
       });
     });
   } catch (error) {
-    res.status(400).json({ error });
+    res.status(400).json({
+      error
+    });
     console.log(error);
   }
 });
@@ -33,13 +35,15 @@ router.get("/:id", (req, res) => {
       });
     });
   } catch (error) {
-    res.status(400).json({ error });
+    res.status(400).json({
+      error
+    });
   }
 });
 
 router.post("/", bodyparser.json(), (req, res) => {
   try {
-    const strQry = `INSERT INTO animes (title, alternate, description, logo, gif, descimage, episodes, seasons, gorelevel, genre, trailer, studio, status) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?,?, ?, ?);`;
+    const strQry = `INSERT INTO animes (title, alternate, description, logo, gif, descimage, episodes, seasons, gorelevel, genre, trailer, studio, status) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?);`;
 
     const anime = {
       title: req.body.title,
@@ -84,7 +88,9 @@ router.post("/", bodyparser.json(), (req, res) => {
       }
     );
   } catch (error) {
-    res.status(400).json({ error });
+    res.status(400).json({
+      error
+    });
   }
 });
 
@@ -92,23 +98,69 @@ router.put("/:id", (req, res) => {
   try {
     const strQry = ``
   } catch (error) {
-    res.status(400).json({error})
+    res.status(400).json({
+      error
+    })
   }
 })
 
 router.delete("/:id", (req, res) => {
   try {
     const strQry = `DELETE FROM animes WHERE id = ${req.params.id};`;
-    
+
     con.query(strQry, (err, results) => {
-      if (err) throw err; 
+      if (err) throw err;
       res.json({
         results: results,
         msg: "Item Deleted"
       })
     })
   } catch (error) {
-    res.status(400).json({error})
+    res.status(400).json({
+      error
+    })
   }
 })
+
+// id increment thingy
+router.put("/", (req, res) => {
+  try {
+    strQry = `SELECT id FROM animes;`;
+
+    con.query(strQry, (err, results) => {
+      if (err) throw err;
+      let test = results
+      // test.length
+      console.log(results[0].id);
+      test.forEach((e, i) => {
+
+      let x = results[i].id  
+       e.id = i++
+          let query = `UPDATE animes SET id = ${i} WHERE id = ${x};
+          ALTER TABLE animes
+          AUTO_INCREMENT = ${results.length};
+          `
+          console.log(results.length)
+
+          con.query(query, (err, results) => {
+            if (err) throw err
+            console.log(results)
+          })
+          x++
+      });
+      res.json({
+        results: results,
+        msg: "Fetched"
+      })
+    })
+  } catch (error) {
+    res.status(400).json({
+      error
+    })
+  }
+
+
+})
+
+
 module.exports = router;

@@ -22,3 +22,6 @@ app.get('/', (req, res) => {
 const animesRoute = require("./routes/animesRoute.js")
 app.use("/animes", animesRoute)
 
+const usersRoute = require("./routes/userRoute.js")
+app.use("/users", usersRoute)
+
