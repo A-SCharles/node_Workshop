@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyparser = require("body-parser");
 const con = require("../config/dbcon");
 
+// get all animes
 router.get("/", (req, res) => {
   try {
     const strQry = `SELECT * FROM animes`;
@@ -23,6 +24,7 @@ router.get("/", (req, res) => {
   }
 });
 
+// get one anime
 router.get("/:id", (req, res) => {
   try {
     const strQry = `SELECT * FROM animes WHERE id = ${req.params.id}`;
@@ -41,6 +43,7 @@ router.get("/:id", (req, res) => {
   }
 });
 
+// add anime to list
 router.post("/", bodyparser.json(), (req, res) => {
   try {
     const strQry = `INSERT INTO animes (title, alternate, description, logo, gif, descimage, episodes, seasons, gorelevel, genre, trailer, studio, status) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?);`;
@@ -94,9 +97,46 @@ router.post("/", bodyparser.json(), (req, res) => {
   }
 });
 
+// edit anime
 router.put("/:id", (req, res) => {
   try {
-    const strQry = ``
+    const strQry = `UPDATE animes SET = ? WHERE id = ${req.params.id};`;
+    const {title,
+      alternate,
+      description,
+      logo,
+      gif,
+      descimage,
+      episodes,
+      seasons,
+      gorelevel,
+      genre,
+      trailer,
+      studio,
+      status} = req.body;
+
+      const anime = {
+        title,
+      alternate,
+      description,
+      logo,
+      gif,
+      descimage,
+      episodes,
+      seasons,
+      gorelevel,
+      genre,
+      trailer,
+      studio,
+      status
+      }
+
+    con.query(strQry, anime, (err, results) => {
+      if (err) throw err
+      res.json({
+        msg: "Updated Item Successful"
+      })
+    })
   } catch (error) {
     res.status(400).json({
       error
@@ -104,6 +144,7 @@ router.put("/:id", (req, res) => {
   }
 })
 
+// delete anime by id 
 router.delete("/:id", (req, res) => {
   try {
     const strQry = `DELETE FROM animes WHERE id = ${req.params.id};`;

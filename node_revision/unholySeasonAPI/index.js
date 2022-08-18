@@ -7,6 +7,14 @@ const bodyparser = require('body-parser')
 const db = require("./config/dbcon")
 
 app.set("port", port || 4000)
+app.use((req, res, next) => {
+    res.set({
+        "Access-Control-Allow-Origin": ["http://localhost:8080",""],
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Methods": "*",
+    })
+    next()
+})
 
 app.use(express.json(), cors(), express.static('public'))
 
