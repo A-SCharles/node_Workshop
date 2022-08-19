@@ -100,7 +100,7 @@ router.post("/", bodyparser.json(), (req, res) => {
 // edit anime
 router.put("/:id", (req, res) => {
   try {
-    const strQry = `UPDATE animes SET = ? WHERE id = ${req.params.id};`;
+    const strQry = `UPDATE animes SET ? WHERE id = ${req.params.id};`;
     const {title,
       alternate,
       description,
@@ -117,17 +117,9 @@ router.put("/:id", (req, res) => {
 
       const anime = {
         title,
-      alternate,
-      description,
-      logo,
-      gif,
-      descimage,
       episodes,
       seasons,
-      gorelevel,
       genre,
-      trailer,
-      studio,
       status
       }
 
